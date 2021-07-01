@@ -19,8 +19,8 @@ namespace ApsisYönetim.Data
         }
 
         public DbSet<User> UsersTable { get; set; }
-        public DbSet<Admin> Admins { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<MonthlyCharge> MonthlyCharges { get; set; }
 
 
 

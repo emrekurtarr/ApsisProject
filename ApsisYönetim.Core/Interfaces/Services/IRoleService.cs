@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApsisYönetim.Core.Interfaces.Repositories
+namespace ApsisYönetim.Core.Interfaces.Services
 {
-    public interface IAdminRepository : IRepositoryBase<Admin>
+    public interface IRoleService : IServiceBase<Role>
     {
 
     }

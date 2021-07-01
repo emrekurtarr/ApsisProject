@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApsisYönetim.Service.Dependency;
+using ApsisYönetim.Core.Entities;
+
 namespace ApsisYönetim.Web
 {
     public class Startup
@@ -25,13 +27,13 @@ namespace ApsisYönetim.Web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services,IConfiguration configuration)
+        public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
             //   .AddEntityFrameworkStores<ApsisDBContext>();
 
 
-            services.RegisterService(configuration);
+            services.RegisterService(Configuration);
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
         }

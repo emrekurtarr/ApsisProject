@@ -1,6 +1,9 @@
 ﻿using ApsisYönetim.Core.Entities;
+using ApsisYönetim.Core.Interfaces.Services;
 using ApsisYönetim.Data;
-using Microsoft.AspNet.Identity.EntityFramework;
+using ApsisYönetim.Service.MapperProfiles;
+using ApsisYönetim.Service.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,14 +24,33 @@ namespace ApsisYönetim.Service.Dependency
             services.AddDbContext<ApsisDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Default")).UseLazyLoadingProxies());
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<Role>()
+                .AddUserManager<UserManager<User>>()
                 .AddEntityFrameworkStores<ApsisDBContext>();
+
+
+            services.AddScoped<UserManager<User>>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddRazorPages();
+           
+
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserProfile());
+                mc.AddProfile(new ApartmentProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.ConfigureApplicationCookie(options =>
             {
-                // TO DO
-                //options.LoginPath = "login urlsi olucak";
-                //options.AccessDeniedPath = "Yetkisi giriş sayfası olucak ";
+
+                options.LoginPath = "/Home/Login";
+                options.AccessDeniedPath = "/Home/AccessDenied";
 
             });
             

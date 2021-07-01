@@ -1,0 +1,57 @@
+﻿@model List<ListingUserDto>
+
+@{
+    ViewData["Title"] = "ShowUser";
+}
+
+<h1>ShowUser</h1>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tc-No</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Plaka-No</th>
+            <th scope="col">Phone-Number</th>
+            <th scope="col">Detail</th>
+            <th scope="col">Delete</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var user in Model)
+        {
+        <tr>
+            <th scope="row">@user.Id</th>
+            <td>@user.TcNo</td>
+            <td>@user.Username</td>
+            <td>@user.Email</td>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>@user.PlakaNo</td>
+            <td>@user.PhoneNumber</td>
+            <td>@Html.ActionLink("Detail", "DetailUser", new { id = user.Id }) </td>
+            <td>@Html.ActionLink("Delete", "DeleteUser", new { id = user.Id }) </td>
+
+
+        </tr>
+
+          
+        }
+
+
+
+    </tbody>
+</table>
+
+
+@*<div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

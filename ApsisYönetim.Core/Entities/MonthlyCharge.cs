@@ -13,8 +13,16 @@ namespace ApsisYönetim.Core.Entities
         public decimal Subscription { get; set; }
         public decimal ElectricBill { get; set; }
         public decimal HeatingCost { get; set; }
-        public bool IsPaid { get; set; }
-        public virtual User User { get; set; }
+        public bool IsPaid { get {
+                if (TotalCharge == 0) {
+                    return true;
+                }
+                return false;
+            } }
+        public decimal TotalCharge => Subscription + ElectricBill + HeatingCost; 
+        public virtual Apartment Apartment { get; set; }
+
+        
 
     }
 }
