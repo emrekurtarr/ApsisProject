@@ -9,6 +9,7 @@ namespace ApsisYönetim.Service.DTOs.User
 {
     public class AddUserDto
     {
+        
         public string TcNo { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

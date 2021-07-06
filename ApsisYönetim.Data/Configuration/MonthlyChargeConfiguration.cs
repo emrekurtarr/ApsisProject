@@ -19,6 +19,9 @@ namespace ApsisYönetim.Data.Configuration
             builder.Property(x => x.ElectricBill).HasColumnType("decimal(5,2)");
             builder.Property(x => x.HeatingCost).HasColumnType("decimal(5,2)");
             builder.Property(x => x.Subscription).HasColumnType("decimal(5,2)");
+
+
+
         }
     }
 }

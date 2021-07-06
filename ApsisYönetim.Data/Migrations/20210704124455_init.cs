@@ -12,6 +12,7 @@ namespace ApsisYönetim.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -27,9 +28,6 @@ namespace ApsisYönetim.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Admin_TcNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Admin_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Admin_Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TcNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -81,12 +79,11 @@ namespace ApsisYönetim.Data.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BlokNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     BlocNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ApartType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FloorNo = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    FloorNo = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +93,7 @@ namespace ApsisYönetim.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,8 +121,8 @@ namespace ApsisYönetim.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -169,8 +166,8 @@ namespace ApsisYönetim.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -185,26 +182,51 @@ namespace ApsisYönetim.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonthlyCharge",
+                name: "RoleUser",
+                columns: table => new
+                {
+                    RolesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleUser", x => new { x.RolesId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_RoleUser_AspNetRoles_RolesId",
+                        column: x => x.RolesId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RoleUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MonthlyCharges",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Subscription = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ElectricBill = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    HeatingCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Subscription = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    ApartmentID = table.Column<int>(type: "int", nullable: false),
+                    ElectricBill = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    MonthOfPaymentAsString = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MonthOfPayment = table.Column<int>(type: "int", nullable: false),
+                    HeatingCost = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MonthlyCharge", x => x.ID);
+                    table.PrimaryKey("PK_MonthlyCharges", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_MonthlyCharge_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_MonthlyCharges_Apartments_ApartmentID",
+                        column: x => x.ApartmentID,
+                        principalTable: "Apartments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -252,16 +274,18 @@ namespace ApsisYönetim.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonthlyCharge_UserId",
-                table: "MonthlyCharge",
-                column: "UserId");
+                name: "IX_MonthlyCharges_ApartmentID",
+                table: "MonthlyCharges",
+                column: "ApartmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleUser_UsersId",
+                table: "RoleUser",
+                column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Apartments");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -278,7 +302,13 @@ namespace ApsisYönetim.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "MonthlyCharge");
+                name: "MonthlyCharges");
+
+            migrationBuilder.DropTable(
+                name: "RoleUser");
+
+            migrationBuilder.DropTable(
+                name: "Apartments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -1,0 +1,46 @@
+﻿@model List<ApartmentWithChargeDto>
+@{
+    Layout = "~/Views/User/_UserLayout.cshtml";
+}
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Bloc NO</th>
+            <th scope="col">Floor NO</th>
+            <th scope="col">Elektrik Faturası</th>
+            <th scope="col">Sıcak su ve Isıtma Faturası</th>
+            <th scope="col">Aidat</th>
+            <th scope="col">Toplam</th>
+            <th scope="col">Ay</th>
+            <th scope="col">Ödeme</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var charge in Model)
+        {
+        <tr>
+            <th scope="row"></th>
+            <td>@charge.BlocNo</td>
+            <td>@charge.FloorNo</td>
+            <td>@charge.ElectricBill</td>
+            <td>@charge.HeatingCost</td>
+            <td>@charge.Subscription</td>
+            <td>@charge.TotalCharge</td>
+            <td>@charge.MonthOfPayment</td>
+            <td>@Html.ActionLink("Öde", "DetailUser", new { chargeid = charge.MonthlyChargeID }) </td>
+
+
+        </tr>
+
+
+        }
+
+
+
+    </tbody>
+</table>

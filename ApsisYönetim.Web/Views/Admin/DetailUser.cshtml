@@ -1,16 +1,18 @@
-﻿@*@model ListingUserDto
+﻿@model ApsisYönetim.Service.DTOs.User.EditUserDto
 
 @{
-    ViewData["Title"] = "EditUser";
+    ViewData["Title"] = "DetailUser";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+
 }
 
-<h1>EditUser</h1>
+<h1>DetailUser</h1>
 
-<h4>UserDto</h4>
+<h4>EditUserDto</h4>
 <hr />
 <div class="row">
-    <div class="col-md-12">
-        <form asp-action="DetailUser">
+    <div class="col-md-4">
+        <form asp-action="DetailUser" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TcNo" class="control-label"></label>
@@ -37,96 +39,25 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
+            @Html.HiddenFor(x=>x.Id)
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
-
-    <hr /><br />
-
-    <table class="table table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Bloc - No</th>
-                <th scope="col">Apart Type</th>
-                <th scope="col">Floor - No</th>
-                <th scope="col">Total Monthly Charge</th>
-                <th scope="col">Status</th>
-
-            </tr>
-        </thead>
-        <tbody>
-
-            @if (Model.Apartments != null)
-            {
-                @foreach (var apart in Model.Apartments)
-                {
-                    <tr>
-
-                        <td>@apart.BlocNo</td>
-                        <td>@apart.ApartType</td>
-                        <td>@apart.FloorNo</td>}
-                        @{
-                            bool isPaid = true;
-                            decimal totalMonthlyCharge = 0;
-                            foreach (MonthlyChargeDto monthlyCharge in apart.MonthlyChargeDto)
-                            {
-                                if (!monthlyCharge.IsPaid)
-                                {
-                                    isPaid = false;
-                                }
-                                totalMonthlyCharge += monthlyCharge.TotalCharge;
-                            }
-                        }
-
-                        <td>@totalMonthlyCharge</td>
-                        @if (isPaid)
-                        {
-                            <td>Ödendi</td>
-                        }
-                        else
-                        {
-                            // TO DO don't exist action
-                            <td>@Html.ActionLink("Payment", "PayChargeForApartment")</td>
-                        }
-
-
-
-                    </tr>
-
-
-                }
-            }
-
-
-
-
-        </tbody>
-    </table>
-
-
 </div>
 
-<div>
-    <a asp-action="ShowUser">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+}

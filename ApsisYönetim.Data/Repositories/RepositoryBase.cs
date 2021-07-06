@@ -34,6 +34,11 @@ namespace ApsisYönetim.Data.Repositories
 
         public async Task<ICollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null)
         {
+            if(expression == null)
+            {
+                return await _entities.ToListAsync();
+            }
+
             return await _entities.Where(expression).ToListAsync();
         }
 

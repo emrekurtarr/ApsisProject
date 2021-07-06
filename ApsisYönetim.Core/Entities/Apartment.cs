@@ -15,7 +15,6 @@ namespace ApsisYönetim.Core.Entities
         public string UserId { get; set; }
         public string BlocNo { get; set; }
         public bool IsActive { get; set; }
-        
         public string ApartType { get; set; }
         public int FloorNo { get; set; }
 

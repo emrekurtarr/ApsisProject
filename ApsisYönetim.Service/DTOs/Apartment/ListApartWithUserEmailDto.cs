@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace ApsisYönetim.Service.DTOs.Apartment
 {
-    public class ApartmentDto
+    public class ListApartWithUserEmailDto
     {
+       
+        public int ID { get; set; }
         public string BlocNo { get; set; }
         public bool IsActive { get; set; }
         public string ApartType { get; set; }
         public int FloorNo { get; set; }
-        public ListingUserDto UserDto { get; set; }
-        public List<MonthlyChargeDto> MonthlyChargeDto { get; set; }
+        public string Useremail{ get; set; }
     }
 }

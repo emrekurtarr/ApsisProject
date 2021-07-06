@@ -1,0 +1,60 @@
+﻿@model List<ListApartWithUserEmailDto>
+
+@{
+    ViewData["Title"] = "ShowApartments";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<h1>ShowApartments</h1>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Bloc - No</th>
+            <th scope="col">Apart Type</th>
+            <th scope="col">Floor - No</th>
+            <th scope="col">IsActive</th>
+            <th scope="col">User Email</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ListApartWithUserEmailDto apart in Model)
+        {
+            <tr>
+                <th scope="row"></th>
+                <td>@apart.BlocNo</td>
+                <td>@apart.ApartType</td>
+                <td>@apart.FloorNo</td>
+                <td>@apart.IsActive</td>
+                <td>
+                    @{
+                        string emailOfUser = null;
+                        if (apart.Useremail == null)
+                        {
+                            emailOfUser = "Kullanıcı yok";
+                        }
+                        else
+                        {
+                            emailOfUser = apart.Useremail;
+                        }
+                    }
+                    @emailOfUser
+
+                </td>
+                <td>@Html.ActionLink("Delete", "Delete", "Apartment", new { apartmentid = apart.ID }) </td>
+                <td>@Html.ActionLink("Edit", "Edit", "Apartment", new { apartmentid = apart.ID }) </td>
+            </tr>
+
+
+        }
+
+
+
+    </tbody>
+</table>
+
+
+
+

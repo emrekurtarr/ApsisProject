@@ -1,5 +1,4 @@
 ﻿using ApsisYönetim.Service.DTOs.Apartment;
-using ApsisYönetim.Service.DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ApsisYönetim.Service.DTOs.MonthlyCharge
 {
-    public class MonthlyChargeDto
+    public class ListingMonthlyChargeDto
     {
-       
         public decimal Subscription { get; set; }
         public decimal ElectricBill { get; set; }
         public decimal HeatingCost { get; set; }
+        
         public bool IsPaid
         {
             get
@@ -26,7 +25,6 @@ namespace ApsisYönetim.Service.DTOs.MonthlyCharge
             }
         }
         public decimal TotalCharge => Subscription + ElectricBill + HeatingCost;
-        public ListingUserDto User { get; set; }
-        public ApartmentDto Apartment { get; set; }
+        public ListApartWithUserEmailDto Apartment { get; set; }
     }
 }

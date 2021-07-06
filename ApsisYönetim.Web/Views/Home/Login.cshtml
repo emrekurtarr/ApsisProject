@@ -1,14 +1,11 @@
-﻿@model UserLoginViewModel
+﻿@model LoginUserDto
 
 @{
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
-
-<h4>UserLoginViewModel</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -28,7 +25,7 @@
         </form>
     </div>
 </div>
-
+<hr />
 
 @*<div>
     <a asp-action="Index">Back to List</a>

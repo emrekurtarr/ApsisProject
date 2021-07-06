@@ -11,12 +11,12 @@ namespace ApsisYönetim.Core.Entities
 {
     public class Role : IdentityRole,IEntity
     {
-        //public Role()
-        //{
-        //    Users = new List<User>();
-        //}
+        public Role()
+        {
+            Users = new List<User>();
+        }
 
-        //public virtual ICollection<User> Users{ get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 
     public enum Roles

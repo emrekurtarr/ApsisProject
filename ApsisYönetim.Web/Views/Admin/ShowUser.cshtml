@@ -17,32 +17,43 @@
             <th scope="col">Surname</th>
             <th scope="col">Plaka-No</th>
             <th scope="col">Phone-Number</th>
+            <th scope="col">Apartments</th>
             <th scope="col">Detail</th>
             <th scope="col">Delete</th>
-
-
         </tr>
     </thead>
     <tbody>
-
         @foreach (var user in Model)
         {
-        <tr>
-            <th scope="row">@user.Id</th>
-            <td>@user.TcNo</td>
-            <td>@user.Username</td>
-            <td>@user.Email</td>
-            <td>@user.Name</td>
-            <td>@user.Surname</td>
-            <td>@user.PlakaNo</td>
-            <td>@user.PhoneNumber</td>
-            <td>@Html.ActionLink("Detail", "DetailUser", new { id = user.Id }) </td>
-            <td>@Html.ActionLink("Delete", "DeleteUser", new { id = user.Id }) </td>
+            <tr>
+                <th scope="row"></th>
+                <td>@user.TcNo</td>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.PlakaNo</td>
+                <td>@user.PhoneNumber</td>
+                @{
+                    string apartments = null;
+                    foreach (var item in user.UsersApartments)
+                    {
+                        apartments += item +" " ;
+                    }
+                }
+                @if (apartments == null)
+                {
+                    <td>--</td>
+                }
+                else
+                {
+                    <td>@apartments</td>
+                }
+                <td>@Html.ActionLink("Detail", "DetailUser", new { userid = user.Id }) </td>
+                <td>@Html.ActionLink("Delete", "DeleteUser", new { userid = user.Id }) </td>
+            </tr>
 
 
-        </tr>
-
-          
         }
 
 

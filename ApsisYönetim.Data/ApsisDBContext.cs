@@ -18,11 +18,16 @@ namespace ApsisYönetim.Data
 
         }
 
-        public DbSet<User> UsersTable { get; set; }
+        
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<MonthlyCharge> MonthlyCharges { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
+            base.OnModelCreating(builder);
+        }
 
     }
 }

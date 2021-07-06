@@ -1,0 +1,55 @@
+﻿@model List<ListApartWithUserEmailDto>
+
+@{
+    ViewData["Title"] = "ListAllApartments";
+}
+
+<h1>ListAllApartments</h1>
+
+<hr />
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Apartman Tipi</th>
+            <th scope="col">Blok - No</th>
+            <th scope="col">Kat - No</th>
+            <th scope="col">Uygunluk Durumu</th>
+            <th scope="col">Oturan Kişi Email</th>
+            <th scope="col">Fatura</th>
+            <th scope="col">Apartmanı Sil</th>
+            <th scope="col">Düzenle</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var apartment in Model)
+        {
+            <tr>
+                <th scope="row">@apartment.ID</th>
+                <td>@apartment.ApartType</td>
+                <td>@apartment.BlocNo</td>
+                <td>@apartment.FloorNo</td>
+                <td>@apartment.IsActive</td>
+                <td>@apartment.Useremail</td>
+
+                <td>@Html.ActionLink("Faturaları Göster", "", new { id = apartment.ID }) </td>
+                <td>@Html.ActionLink("Apartmanı Sil", "", new { id = apartment.ID }) </td>
+                <td>@Html.ActionLink("Düzenle", "", new { id = apartment.ID }) </td>
+
+            </tr>
+
+
+        }
+
+
+
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

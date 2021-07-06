@@ -13,7 +13,13 @@ namespace ApsisYönetim.Service.MapperProfiles
     {
         public ApartmentProfile()
         {
-            CreateMap<ApartmentDto, Apartment>().ReverseMap();
+            CreateMap<Apartment , EditApartmentDto>().ForMember(dest => dest.UserId, source => source.MapFrom(x => x.User.Id));
+            CreateMap<EditApartmentDto, Apartment>();
+            CreateMap<AddApartmentDto, Apartment>().ReverseMap();
+            CreateMap<AddChargeToApartDto, Apartment>().ReverseMap();
+            CreateMap<Apartment, ListApartWithUserEmailDto>().ForMember(dest => dest.Useremail, source => source.MapFrom(x => x.User.Email));
+            CreateMap<ListApartWithUserEmailDto, Apartment>();
+            CreateMap<Apartment, ApartmentWithChargeDto>().ReverseMap();
         }
     }
 }

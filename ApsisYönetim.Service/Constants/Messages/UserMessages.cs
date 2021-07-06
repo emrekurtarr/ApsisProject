@@ -17,5 +17,6 @@ namespace ApsisYönetim.Service.Constants.Messages
         public static string DeletedSuccessfully = " başarıyla silindi";
 
         public static string FailDeleted = " silme işlemi gerçekleştirilemedi !!!";
+        public static string WrongPasswordOrEmail = " şifre ya da email adresi yanlış";
     }
 }

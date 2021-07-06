@@ -14,6 +14,11 @@ namespace ApsisYönetim.Service.MapperProfiles
         public UserProfile()
         {
             CreateMap<AddUserDto, User>().ReverseMap();
+            CreateMap<LoginUserDto, User>().ReverseMap();
+            CreateMap<ListingUserDto, User>().ReverseMap();
+            CreateMap<IndexUserDto, User>().ReverseMap();
+            CreateMap<User, EditUserDto>().ReverseMap();
+
         }
     }
 }

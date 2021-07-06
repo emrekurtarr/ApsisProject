@@ -1,5 +1,7 @@
 ﻿using ApsisYönetim.Core.Entities;
+using ApsisYönetim.Core.Interfaces.Services;
 using ApsisYönetim.Service.DTOs;
+using ApsisYönetim.Service.DTOs.Apartment;
 using ApsisYönetim.Service.DTOs.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -15,31 +17,31 @@ namespace ApsisYönetim.Web.Controllers
     [Authorize(Roles =nameof(Roles.Admin))]
     public class AdminController : Controller
     {
-        private readonly UserManager<User> _userManager = null;
+        private readonly IUserService _userService = null;
         private readonly IMapper _mapper = null;
+        private readonly IApartmentService _apartmentService = null;
 
-        public AdminController(UserManager<User> userManager,IMapper mapper)
+        public AdminController(IUserService userService, IMapper mapper, IApartmentService apartmentService)
         {
             _mapper = mapper;
-            _userManager = userManager;
+            _userService = userService;
+            _apartmentService = apartmentService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteUser(string userid)
         {
-            User user = await _userManager.FindByIdAsync(id.ToString());
-            if(user != null)
-            {
-                
+            var existUser = await _userService.GetAsync(x => x.Id == userid);
+            var deleteResult = await _userService.Delete(existUser.Data);
 
-                IdentityResult result = _userManager.DeleteAsync(user).Result;
-                if (result.Succeeded)
-                {
-                    return NoContent();
-                }
-                
+            if (deleteResult.Success)
+            {
+                return RedirectToAction("ShowUser", "Admin");
             }
             
             return BadRequest();
@@ -47,31 +49,74 @@ namespace ApsisYönetim.Web.Controllers
         }
 
 
-        public async Task<IActionResult> DetailUser(Guid id)
+        public async Task<IActionResult> DetailUser(string userid)
         {
-            User user = await _userManager.FindByIdAsync(id.ToString());
+            var result = await _userService.GetAsync(x => x.Id == userid);
+            if(result.Data == null)
+            {
+                return NotFound();
+            }
 
-            if (user == null) return NotFound();
+            User user = result.Data;
 
-            ListingUserDto userdto = _mapper.Map<ListingUserDto>(user);
+            return View(_mapper.Map<EditUserDto>(user));
+
+        }
+
+        // TODO : VALIDATION 
+        [HttpPost]
+        public async Task<IActionResult> DetailUser(EditUserDto userdto)
+        {
+
+            var result = await _userService.Update(_mapper.Map<User>(userdto));
+
+            if (result.Success)
+            {
+                return RedirectToAction("ShowUser", "Admin");
+            }
+
+            return RedirectToAction("UserNotUpdated");
+        }
+
+        public IActionResult UserNotUpdated()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ShowUser()
+        {
+            var result = await _userService.GetAllUsersWithApartments();
+            List<User> users = result.Data;
+            List<ListingUserDto> userdto = _mapper.Map<List<ListingUserDto>>(users);
+
+            // Please don't look at 3 foreach loops :)))
+            // I could this in service layer, but there's not enough time
+            foreach (User user in users)
+            {
+                foreach (Apartment apartment in user.Apartments)
+                {
+                    if (apartment != null)
+                    {
+                        foreach (var item in userdto)
+                        {
+                            if (item.Email == user.Email)
+                            {
+                                item.UsersApartments.Add(apartment.BlocNo + "-" + apartment.FloorNo);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             return View(userdto);
         }
 
-
-        public IActionResult ShowUser()
-        {
-            List<User> users = _userManager.Users.ToList();
-
-            return View(_mapper.Map<List<ListingUserDto>>(users));
-
-        }
-
         
 
-       
 
-       
+
+
 
     }
 }

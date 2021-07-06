@@ -9,6 +9,8 @@ namespace ApsisYönetim.Core.Interfaces.Repositories
 {
     public interface IApartmentRepository : IRepositoryBase<Apartment>
     {
-
+        Task<ICollection<Apartment>> GetApartmentsWithMonthlyCharge(string userid);
+        Task<ICollection<Apartment>> GetAllApartmentsWithUsers();
+        Task<Apartment> GetApartmentWithUser(int apartmentid);
     }
 }

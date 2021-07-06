@@ -1,6 +1,8 @@
 ﻿using ApsisYönetim.Core.Entities;
-using ApsisYönetim.Web.Models;
-using ApsisYönetim.Web.Models.ViewModels;
+using ApsisYönetim.Core.Interfaces.Services;
+using ApsisYönetim.Service.DTOs.User;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,16 +17,20 @@ namespace ApsisYönetim.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<User> _userManager = null;
+        private readonly IUserService _userService = null;
+        private readonly IMapper _mapper = null;
         private readonly RoleManager<Role> _roleManager = null;
-        private readonly SignInManager<User> _signInManager = null;
+        private readonly UserManager<User> _userManager = null;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+
+        public HomeController(ILogger<HomeController> logger,IUserService userService,IMapper mapper, RoleManager<Role> roleManager,UserManager<User> userManager)
         {
             _logger = logger;
+            _userService = userService;
+            _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
-            _signInManager = signInManager;
+
         }
 
         public IActionResult Index()
@@ -40,18 +46,28 @@ namespace ApsisYönetim.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLoginViewModel usermodel)
+        public async Task<IActionResult> Login(LoginUserDto userdto)
         {
-            User loginedUser = await _userManager.FindByEmailAsync(usermodel.Email);
 
-            if (loginedUser != null)
+            var result = await _userService.Login(_mapper.Map<User>(userdto),userdto.Password);
+            if (result.Success)
             {
-                var result = await _signInManager.PasswordSignInAsync(loginedUser, usermodel.Password, false, false);
+                var res = await _userService.GetAsync(x => x.Email == userdto.Email);
+                User dbUser = res.Data;
+                HttpContext.Session.SetString("userid", dbUser.Id);
 
-                if (result.Succeeded)
+                HttpContext.Session.SetString("password", userdto.Password);
+                HttpContext.Session.SetString("email", userdto.Email);
+                
+                
+
+
+                // Is Admin or Not 
+                if (result.Data)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Admin");
                 }
+                return RedirectToAction("Index","User");
             }
 
             return View();
@@ -76,11 +92,11 @@ namespace ApsisYönetim.Web.Controllers
 
         public async Task<IActionResult> AddAdmin()
         {
-            //Role role = await _roleManager.FindByNameAsync(nameof(Roles.Admin));
-            //User user = new User { Email = "emre@emre.com", Name = "Emre", UserName = "0the1emre", PlakaNo = "26BY534", };
+            Role role = await _roleManager.FindByNameAsync(nameof(Roles.Admin));
+            User user = new User { Email = "emre@emre.com", Name = "Emre", UserName = "0the1emre", PlakaNo = "26BY534", };
 
-            //await _userManager.CreateAsync(user, "Emrekurtar007!");
-            //await _userManager.AddToRoleAsync(user, nameof(Roles.Admin));
+            await _userManager.CreateAsync(user, "Emrekurtar007!");
+            await _userManager.AddToRoleAsync(user, nameof(Roles.Admin));
 
             return View();
         }

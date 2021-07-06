@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ApsisYönetim.Data.Repositories
 {
-    public class UserRepository : RepositoryBase<User>,IUserRepository
+    public class MontlyChargeRepository : RepositoryBase<MonthlyCharge>,IMonthlyChargeRepository
     {
-        public UserRepository(ApsisDBContext context):base(context)
+        public MontlyChargeRepository(ApsisDBContext context):base(context)
         {
-            
+
         }
     }
 }

@@ -24,6 +24,8 @@ namespace ApsisYönetim.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ApartType")
@@ -53,19 +55,28 @@ namespace ApsisYönetim.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ApartmentID")
+                    b.Property<int>("ApartmentID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("ElectricBill")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("HeatingCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("MonthOfPayment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MonthOfPaymentAsString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Subscription")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("ID");
 
@@ -229,12 +240,10 @@ namespace ApsisYönetim.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -271,12 +280,10 @@ namespace ApsisYönetim.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -286,14 +293,24 @@ namespace ApsisYönetim.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<string>("RolesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
+                });
+
             modelBuilder.Entity("ApsisYönetim.Core.Entities.Role", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("UserId");
 
                     b.HasDiscriminator().HasValue("Role");
                 });
@@ -321,7 +338,8 @@ namespace ApsisYönetim.Data.Migrations
                 {
                     b.HasOne("ApsisYönetim.Core.Entities.User", "User")
                         .WithMany("Apartments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -330,7 +348,9 @@ namespace ApsisYönetim.Data.Migrations
                 {
                     b.HasOne("ApsisYönetim.Core.Entities.Apartment", "Apartment")
                         .WithMany("MonthlyCharge")
-                        .HasForeignKey("ApartmentID");
+                        .HasForeignKey("ApartmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Apartment");
                 });
@@ -386,11 +406,19 @@ namespace ApsisYönetim.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ApsisYönetim.Core.Entities.Role", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
+                    b.HasOne("ApsisYönetim.Core.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ApsisYönetim.Core.Entities.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId");
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApsisYönetim.Core.Entities.Apartment", b =>
@@ -401,8 +429,6 @@ namespace ApsisYönetim.Data.Migrations
             modelBuilder.Entity("ApsisYönetim.Core.Entities.User", b =>
                 {
                     b.Navigation("Apartments");
-
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
