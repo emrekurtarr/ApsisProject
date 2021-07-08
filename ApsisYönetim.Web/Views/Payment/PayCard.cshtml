@@ -1,0 +1,61 @@
+﻿@model ApsisYönetim.Service.DTOs.CreditCard.CreditCardDto
+
+@{
+    ViewData["Title"] = "PayCard";
+}
+
+<h1>PayCard</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PayCard" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.Label("Toplam Ücret : ") 
+                @Html.DisplayFor(x=>x.Money)
+
+            </div>
+            @Html.HiddenFor(x=>x.ChargeId)
+            @Html.HiddenFor(x=>x.Money)
+            <div class="form-group">
+                @Html.LabelFor(x => x.User, "Ad ve Soyad : ", new { @class = "control-label" })
+                <input asp-for="User" class="form-control" />
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CardNumber, "Kart No : ", new { @class = "control-label" })
+                <input asp-for="CardNumber" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.ValidMonth, "Geçerlilik Ayı : ", new { @class = "control-label" })
+                <input asp-for="ValidMonth" class="form-control" />
+                <span asp-validation-for="ValidMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.ValidYear, "Geçerlilik Yılı : ", new { @class = "control-label" })>
+                <input asp-for="ValidYear" class="form-control" />
+                <span asp-validation-for="ValidYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Cvv, "CVV : ", new { @class = "control-label" })
+                <input asp-for="Cvv" class="form-control" />
+                <span asp-validation-for="Cvv" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Öde" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

@@ -68,7 +68,7 @@ namespace ApsisYönetim.Service.Services
 
         }
 
-        // TODO : DELETE USER
+        
         public async Task<IResult> Delete(User item)
         {
             User user = await _userManager.FindByIdAsync(item.Id);
@@ -139,7 +139,7 @@ namespace ApsisYönetim.Service.Services
 
         public async Task<IDataResult<User>> GetAsync(Expression<Func<User, bool>> expression)
         {
-            User user = await _userManager.Users.FirstOrDefaultAsync(expression);
+            User user = await _userManager.Users.Include(x=>x.Roles).FirstOrDefaultAsync(expression);
 
             if (user == null)
             {
@@ -147,7 +147,7 @@ namespace ApsisYönetim.Service.Services
             }
 
             return new SuccessDataResult<User>(user);
-
+            
         }
 
         //TODO : Is this func necessary ?
@@ -231,8 +231,7 @@ namespace ApsisYönetim.Service.Services
             return new SuccessResult();
         }
 
-
-        // TODO : UPDATE USER
+        
         public async Task<IResult> Update(User item)
         {
             User user = await _userManager.FindByIdAsync(item.Id);
@@ -258,6 +257,7 @@ namespace ApsisYönetim.Service.Services
 
         }
 
+        
         async Task<IResult> IServiceBase<User>.AddAsync(User item)
         {
             if (item == null)

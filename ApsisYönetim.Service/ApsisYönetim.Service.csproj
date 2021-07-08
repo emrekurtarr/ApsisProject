@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApsisYönetim.Data\ApsisYönetim.Data.csproj" />
+    <ProjectReference Include="..\Shared\Apsis.Shared\Apsis.Shared.csproj" />
   </ItemGroup>
 
 </Project>

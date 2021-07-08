@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace ApsisYönetim.Web.Controllers
 {
-    [Authorize(Roles = nameof(Roles.User) + "," + nameof(Roles.Admin))]
+   
+       
     public class UserController : Controller
     {
         private readonly IMapper _mapper = null;
@@ -38,6 +39,7 @@ namespace ApsisYönetim.Web.Controllers
         //    return View();
         //}
 
+        [Authorize(Roles = nameof(Roles.User))]
         public IActionResult Index()
         {
             string username = User.Identity.Name;
@@ -47,14 +49,14 @@ namespace ApsisYönetim.Web.Controllers
             return View(_mapper.Map<IndexUserDto>(user));
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = nameof(Roles.Admin))]
         public IActionResult CreateUser()
         {
 
             return View();
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = nameof(Roles.Admin))]
         [HttpPost]
         public async Task<IActionResult> CreateUser(AddUserDto userdto)
         {
@@ -78,6 +80,7 @@ namespace ApsisYönetim.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = nameof(Roles.Admin) + "," + nameof(Roles.User))]
         [AllowAnonymous]
         public IActionResult LogOut(string username)
         {
@@ -92,21 +95,23 @@ namespace ApsisYönetim.Web.Controllers
 
             return RedirectToAction("Login", "Home");
         }
-        
 
-        
-        [AllowAnonymous]
+
+
+        [Authorize(Roles = nameof(Roles.Admin))]
         public IActionResult ShowInfoForUser()
         {
             ViewBag.UserPassword = TempData["UserPassword"];
             return View();
         }
 
+        [Authorize(Roles = nameof(Roles.User))]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
+        [Authorize(Roles = nameof(Roles.User))]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordUserDto userdto)
         {

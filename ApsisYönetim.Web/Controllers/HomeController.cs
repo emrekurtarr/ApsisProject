@@ -2,6 +2,7 @@
 using ApsisYönetim.Core.Interfaces.Services;
 using ApsisYönetim.Service.DTOs.User;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,26 +22,42 @@ namespace ApsisYönetim.Web.Controllers
         private readonly IMapper _mapper = null;
         private readonly RoleManager<Role> _roleManager = null;
         private readonly UserManager<User> _userManager = null;
+        private readonly SignInManager<User> _signInManager = null;
 
 
-        public HomeController(ILogger<HomeController> logger,IUserService userService,IMapper mapper, RoleManager<Role> roleManager,UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger,IUserService userService, SignInManager<User> signInManager, IMapper mapper, RoleManager<Role> roleManager,UserManager<User> userManager)
         {
             _logger = logger;
             _userService = userService;
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
 
         }
 
-        public IActionResult Index()
+        [Authorize(Roles = nameof(Roles.Admin) + "," + nameof(Roles.User))]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await _userService.GetAsync(x => x.UserName == User.Identity.Name);
+            User currentUser = result.Data;
+
+            if (currentUser.Roles.Any(x => x.Name == "Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            return RedirectToAction("Index", "User"); 
         }
 
 
         public IActionResult Login()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -81,7 +98,7 @@ namespace ApsisYönetim.Web.Controllers
         }
 
 
-
+        
         public async Task<IActionResult> AddRole()
         {
             await _roleManager.CreateAsync(new Role { Name = nameof(Roles.Admin) });
@@ -101,10 +118,7 @@ namespace ApsisYönetim.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
 
     }

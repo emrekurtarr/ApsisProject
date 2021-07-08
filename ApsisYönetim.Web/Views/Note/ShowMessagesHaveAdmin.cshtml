@@ -1,0 +1,36 @@
+﻿@model List<ShowNotesDto>
+
+@{
+    ViewData["Title"] = "ShowMessagesHaveAdmin";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<h1>ShowMessagesHaveAdmin</h1>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Gönderen Kişi Email</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Mesaj</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (ShowNotesDto note in Model)
+        {
+            <tr>
+                <th scope="row"></th>
+                <td>@note.Sender</td>
+                <td>@note.Header</td>
+                <td>@note.Content</td>
+               
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+

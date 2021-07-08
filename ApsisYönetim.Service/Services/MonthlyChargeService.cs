@@ -51,14 +51,50 @@ namespace ApsisYönetim.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<IDataResult<MonthlyCharge>> GetAsync(Expression<Func<MonthlyCharge, bool>> expression)
+        public async Task<IDataResult<MonthlyCharge>> GetAsync(Expression<Func<MonthlyCharge, bool>> expression)
         {
-            throw new NotImplementedException();
+            MonthlyCharge charge = await _monthlyChargeRepository.GetAsync(expression);
+
+            if (charge == null)
+            {
+                return new ErrorDataResult<MonthlyCharge>(); 
+            }
+            return new SuccessDataResult<MonthlyCharge>(charge);
         }
 
-        public Task<IResult> Update(MonthlyCharge item)
+        public async Task<IResult> SetPaid(int chargeid)
         {
-            throw new NotImplementedException();
+            MonthlyCharge charge = await _monthlyChargeRepository.GetAsync(x => x.ID == chargeid);
+            charge.IsPaid = true;
+
+            var result =  await Update(charge);
+
+            if (result.Success)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
+
+        public async Task<IResult> Update(MonthlyCharge item)
+        {
+            MonthlyCharge charge = await _monthlyChargeRepository.GetAsync(x => x.ID == item.ID);
+
+            if(charge == null)
+            {
+                return new ErrorResult(MonthlyChargeMessages.NotFound);
+            }
+
+
+            int result = await _monthlyChargeRepository.Update(item);
+
+            if(result < 0)
+            {
+                return new ErrorResult(MonthlyChargeMessages.FailUpdated); 
+            }
+
+            return new SuccessResult();
+
         }
     }
 }

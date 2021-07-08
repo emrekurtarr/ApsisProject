@@ -53,6 +53,22 @@ namespace ApsisYönetim.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Header = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Receiver = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -216,7 +232,8 @@ namespace ApsisYönetim.Data.Migrations
                     ElectricBill = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     MonthOfPaymentAsString = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonthOfPayment = table.Column<int>(type: "int", nullable: false),
-                    HeatingCost = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                    HeatingCost = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -303,6 +320,9 @@ namespace ApsisYönetim.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "MonthlyCharges");
+
+            migrationBuilder.DropTable(
+                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "RoleUser");

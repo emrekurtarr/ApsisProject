@@ -68,6 +68,9 @@ namespace ApsisYönetim.Data.Migrations
                     b.Property<decimal>("HeatingCost")
                         .HasColumnType("decimal(5,2)");
 
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MonthOfPayment")
                         .HasColumnType("int");
 
@@ -83,6 +86,32 @@ namespace ApsisYönetim.Data.Migrations
                     b.HasIndex("ApartmentID");
 
                     b.ToTable("MonthlyCharges");
+                });
+
+            modelBuilder.Entity("ApsisYönetim.Core.Entities.Note", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Header")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Receiver")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

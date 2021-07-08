@@ -14,6 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApsisYönetim.Service.Dependency;
 using ApsisYönetim.Core.Entities;
+using ApsisYönetim.Web.AdminConfig;
+using Microsoft.Extensions.Options;
 
 namespace ApsisYönetim.Web
 {
@@ -34,6 +36,15 @@ namespace ApsisYönetim.Web
 
 
             services.RegisterService(Configuration);
+
+            //Options pattern to get admin's Email
+
+            services.Configure<AdminEmail>(Configuration.GetSection("AdminEmail"));
+            services.AddSingleton<IAdminEmail>(sp => {
+
+                return sp.GetRequiredService<IOptions<AdminEmail>>().Value;
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
         }

@@ -13,5 +13,8 @@ namespace ApsisYönetim.Service.Constants.Messages
         public static string DeletedSuccessfully = " fatura başarıyla silindi";
 
         public static string FailDeleted = " fatura silme işlemi gerçekleştirilemedi !!!";
+        public static string NotFound = " böyle bir fatura bulunamadı !";
+        public static string FailUpdated = " fatura güncellenemedi ";
+        internal static string SuccessfullyUpdated = "fatura başarılı bir şekilde güncellenmiştir";
     }
 }

@@ -37,12 +37,12 @@
                 </div>
                 <div class="col-md-4">
                     <h3>Menü</h3>
-                    
-                   
+
+
 
                     @Html.ActionLink("Şifre Değiştirme", "ChangePassword", "User", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
-                    @Html.ActionLink("Bilgi Güncelleme", "Edit","User", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
-                    @Html.ActionLink("Faturaları Göster", "GetChargesWithApartments", "Apartment",null,  htmlAttributes: new { @class = "btn btn-info btn-block" })
+                    @Html.ActionLink("Faturaları Göster", "GetChargesWithApartments", "Apartment", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
+                    @Html.ActionLink("Yöneticiye Mesaj Gönder", "AddNoteToAdmin", "Note", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
 
 
                 </div>
@@ -51,7 +51,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - ApsisKullanıcı - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - ApsisKullanıcı - 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

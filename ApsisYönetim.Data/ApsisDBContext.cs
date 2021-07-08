@@ -18,7 +18,7 @@ namespace ApsisYönetim.Data
 
         }
 
-        
+        public DbSet<Note> Notes{ get; set; }
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<MonthlyCharge> MonthlyCharges { get; set; }
 

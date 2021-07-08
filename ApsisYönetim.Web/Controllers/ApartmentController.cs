@@ -130,6 +130,7 @@ namespace ApsisYönetim.Web.Controllers
                 {
                     dto.Add(new ApartmentWithChargeDto
                     {
+                        IsPaid = charge.IsPaid,
                         MonthlyChargeID = charge.ID,
                         BlocNo = apart.BlocNo,
                         ElectricBill = charge.ElectricBill,

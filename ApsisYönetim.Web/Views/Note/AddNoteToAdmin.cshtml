@@ -1,0 +1,36 @@
+﻿@model AddNoteDto
+
+@{
+    ViewData["Title"] = "AddNoteToAdmin";
+    Layout = "~/Views/User/_UserLayout.cshtml";
+}
+
+<h3>Send Message To Admin</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddNoteToAdmin" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(x=>x.Header,"Başlık ",new { @class= "control-label" })
+                <input asp-for="Header" class="form-control" />
+                <span asp-validation-for="Header" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Header, "Mesaj ", new { @class = "control-label" })
+                @Html.TextBoxFor(x=>x.Content, new { @class = "form-control" })
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApsisYönetim.Web", "ApsisYönetim.Web\ApsisYönetim.Web.csproj", "{473A54D7-54D7-4492-A41A-0E4BCC1C3CA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApsisYönetim.Web", "ApsisYönetim.Web\ApsisYönetim.Web.csproj", "{473A54D7-54D7-4492-A41A-0E4BCC1C3CA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApsisYönetim.Core", "ApsisYönetim.Core\ApsisYönetim.Core.csproj", "{912FBE72-470E-45E5-B867-8B085D06E6EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApsisYönetim.Core", "ApsisYönetim.Core\ApsisYönetim.Core.csproj", "{912FBE72-470E-45E5-B867-8B085D06E6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApsisYönetim.Data", "ApsisYönetim.Data\ApsisYönetim.Data.csproj", "{0B32CCA5-B3B8-4C6A-878C-6BEE2B58E743}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApsisYönetim.Data", "ApsisYönetim.Data\ApsisYönetim.Data.csproj", "{0B32CCA5-B3B8-4C6A-878C-6BEE2B58E743}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApsisYönetim.Service", "ApsisYönetim.Service\ApsisYönetim.Service.csproj", "{4649B011-7991-4100-A530-417A7CB34508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApsisYönetim.Service", "ApsisYönetim.Service\ApsisYönetim.Service.csproj", "{4649B011-7991-4100-A530-417A7CB34508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApsisYönetim.CardService", "ApsisYönetim.CardService\ApsisYönetim.CardService.csproj", "{90A06F74-C68F-49AA-AE3E-4CEC7AFA171A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0AAFC7FB-335F-4C33-B868-B1CEE85E58A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apsis.Shared", "Shared\Apsis.Shared\Apsis.Shared.csproj", "{E7497EF0-0E85-4468-B873-F704DA76BF43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,20 @@ Global
 		{4649B011-7991-4100-A530-417A7CB34508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4649B011-7991-4100-A530-417A7CB34508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4649B011-7991-4100-A530-417A7CB34508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A06F74-C68F-49AA-AE3E-4CEC7AFA171A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A06F74-C68F-49AA-AE3E-4CEC7AFA171A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A06F74-C68F-49AA-AE3E-4CEC7AFA171A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A06F74-C68F-49AA-AE3E-4CEC7AFA171A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7497EF0-0E85-4468-B873-F704DA76BF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7497EF0-0E85-4468-B873-F704DA76BF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7497EF0-0E85-4468-B873-F704DA76BF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7497EF0-0E85-4468-B873-F704DA76BF43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7497EF0-0E85-4468-B873-F704DA76BF43} = {0AAFC7FB-335F-4C33-B868-B1CEE85E58A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D19DD08-8074-4D32-B4C2-683E3CF59809}

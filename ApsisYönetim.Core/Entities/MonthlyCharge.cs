@@ -32,17 +32,7 @@ namespace ApsisYönetim.Core.Entities
         public Months MonthOfPayment { get; set; }
         public decimal HeatingCost { get; set; }
         //public DateTime LastPaymentDate { get; set; }
-        public bool IsPaid
-        {
-            get
-            {
-                if (TotalCharge == 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool IsPaid { get; set; }
         public decimal TotalCharge => Subscription + ElectricBill + HeatingCost;
         public virtual Apartment Apartment { get; set; }
     }

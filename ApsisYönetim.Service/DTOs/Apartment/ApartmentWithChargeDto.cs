@@ -14,6 +14,7 @@ namespace ApsisYönetim.Service.DTOs.Apartment
         public decimal Subscription { get; set; }
         public decimal ElectricBill { get; set; }
         public decimal HeatingCost { get; set; }
+        public bool IsPaid { get; set; }
 
         public string MonthOfPayment { get; set; }
         public decimal TotalCharge => Subscription + ElectricBill + HeatingCost;

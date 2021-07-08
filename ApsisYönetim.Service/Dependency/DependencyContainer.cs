@@ -5,6 +5,7 @@ using ApsisYönetim.Data;
 using ApsisYönetim.Data.Repositories;
 using ApsisYönetim.Service.MapperProfiles;
 using ApsisYönetim.Service.Services;
+using ApsisYönetim.Service.Services.ApiCreditCardService;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,11 +28,14 @@ namespace ApsisYönetim.Service.Dependency
                 options.UseSqlServer(configuration.GetConnectionString("Default")).UseLazyLoadingProxies());
 
             services.AddIdentity<User, Role>(options => 
-            {   options.SignIn.RequireConfirmedAccount = true;
-                options.Password.RequireNonAlphanumeric = false;                                                
+            { 
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireNonAlphanumeric = false;     
+               
             })
                     .AddRoles<Role>()
                     .AddUserManager<UserManager<User>>()
+                    .AddSignInManager<SignInManager<User>>()
                     .AddEntityFrameworkStores<ApsisDBContext>();
 
             services.AddDistributedMemoryCache();
@@ -46,7 +50,15 @@ namespace ApsisYönetim.Service.Dependency
             services.AddScoped<IMonthlyChargeService, MonthlyChargeService>();
             services.AddScoped<IApartmentService, ApartmentService>();
             services.AddScoped<IApartmentRepository, ApartmentRepository>();
+            services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<INoteService, NoteService>();
 
+
+            services.AddHttpClient<ICreditCardService, CreditCardService>(options =>
+            {
+                options.BaseAddress = new Uri(configuration["CreditCard:Url"]); 
+                //"http://localhost:5000/api/v1/";
+            });
 
             services.AddRazorPages();
            
@@ -58,6 +70,7 @@ namespace ApsisYönetim.Service.Dependency
                 mc.AddProfile(new ApartmentProfile());
                 mc.AddProfile(new RoleProfile());
                 mc.AddProfile(new MonthlyChargeProfile());
+                mc.AddProfile(new NoteProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -65,7 +78,6 @@ namespace ApsisYönetim.Service.Dependency
 
             services.ConfigureApplicationCookie(options =>
             {
-
                 options.LoginPath = "/Home/Login";
                 options.AccessDeniedPath = "/Home/AccessDenied";
 

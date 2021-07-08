@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ApsisYönetim</a>
+                @Html.ActionLink("ApsisYönetim","Index","Home")
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -45,6 +45,7 @@
                     @Html.ActionLink("Fatura Gir", "AddtoApartment", "MonthlyCharge", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
                     @Html.ActionLink("Yeni Apartman Gir", "Create", "Apartment", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
                     @Html.ActionLink("Apartmanları Göster", "ShowApartments", "Apartment", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
+                    @Html.ActionLink("Mesaj Kutusu", "ShowMessagesHaveAdmin", "Note", null, htmlAttributes: new { @class = "btn btn-info btn-block" })
 
 
                 </div>

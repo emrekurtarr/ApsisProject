@@ -32,7 +32,17 @@
             <td>@charge.Subscription</td>
             <td>@charge.TotalCharge</td>
             <td>@charge.MonthOfPayment</td>
-            <td>@Html.ActionLink("Öde", "DetailUser", new { chargeid = charge.MonthlyChargeID }) </td>
+            @{
+                if (!charge.IsPaid)
+                {
+                    <td>@Html.ActionLink("Kredi kartı ile öde", "PayCard", "Payment", new { chargeid = charge.MonthlyChargeID }) </td>
+                }
+                else
+                {
+                    <td>ÖDENMİŞTİR !</td>
+                }
+            }
+
 
 
         </tr>
