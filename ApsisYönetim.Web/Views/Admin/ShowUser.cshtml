@@ -5,7 +5,7 @@
 
 }
 
-<h1>ShowUser</h1>
+<h1>Kullanıcılar</h1>
 
 <table class="table table-dark">
     <thead>
@@ -50,8 +50,8 @@
                 {
                     <td>@apartments</td>
                 }
-                <td>@Html.ActionLink("Detail", "DetailUser", new { userid = user.Id }) </td>
-                <td>@Html.ActionLink("Delete", "DeleteUser", new { userid = user.Id }) </td>
+                <td>@Html.ActionLink("Detay", "DetailUser", new { userid = user.Id }) </td>
+                <td>@Html.ActionLink("Sil", "DeleteUser", new { userid = user.Id }) </td>
             </tr>
 
 
@@ -62,7 +62,7 @@
     </tbody>
 </table>
 
-@Html.ActionLink("Anasayfa","Admin","Index")
+@Html.ActionLink("Anasayfa","Index","Admin")
 
 @*<div>
         @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

@@ -8,9 +8,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 
-<h1>Create</h1>
-
-<h4>AddApartmentDto</h4>
+<h4>Apartman EKLE</h4>
 <hr />
 
 <div class="container">
@@ -24,21 +22,21 @@
                     <hr />
                     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ApartType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.ApartType,"Apartman Tipi", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.ApartType, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.BlocNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.BlocNo, "Blok No ", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.BlocNo, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.FloorNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.FloorNo, "Kat No ",htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.FloorNo, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
@@ -46,14 +44,14 @@
 
                     @*boolean*@
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.IsActive,"Boş/Dolu",htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="custom-checkbox">
                             @Html.EditorFor(model => model.IsActive)
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.UserId, "User ", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.UserId,"Ev sakini", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.UserId, ViewBag.Users as SelectList, "User seçiniz", htmlAttributes: new { @class = "form-control" })
                         </div>

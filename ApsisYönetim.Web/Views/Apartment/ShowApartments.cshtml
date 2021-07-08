@@ -5,17 +5,17 @@
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
 
-<h1>ShowApartments</h1>
+<h1>Apartmanlar</h1>
 
 <table class="table table-dark">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Bloc - No</th>
-            <th scope="col">Apart Type</th>
-            <th scope="col">Floor - No</th>
-            <th scope="col">IsActive</th>
-            <th scope="col">User Email</th>
+            <th scope="col">Blok-No</th>
+            <th scope="col">Daire Tipi</th>
+            <th scope="col">Kat-No</th>
+            <th scope="col">Dolu/Boş</th>
+            <th scope="col">Ev sakini Email</th>
 
         </tr>
     </thead>
@@ -27,7 +27,15 @@
                 <td>@apart.BlocNo</td>
                 <td>@apart.ApartType</td>
                 <td>@apart.FloorNo</td>
-                <td>@apart.IsActive</td>
+                @if (apart.IsActive)
+                {
+                    <td>Dolu</td>
+                }
+                else
+                {
+                    <td>Boş</td>
+                }
+
                 <td>
                     @{
                         string emailOfUser = null;
@@ -43,8 +51,9 @@
                     @emailOfUser
 
                 </td>
-                <td>@Html.ActionLink("Delete", "Delete", "Apartment", new { apartmentid = apart.ID }) </td>
-                <td>@Html.ActionLink("Edit", "Edit", "Apartment", new { apartmentid = apart.ID }) </td>
+
+                <td>@Html.ActionLink("Düzenle", "Edit", "Apartment", new { apartmentid = apart.ID }) </td>
+                <td>@Html.ActionLink("Sil", "Delete", "Apartment", new { apartmentid = apart.ID }) </td>
             </tr>
 
 
