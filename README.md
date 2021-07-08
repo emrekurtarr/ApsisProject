@@ -39,3 +39,9 @@
 
 - Inversion Of Control	-  Implementing with Dependency Injection ( with constructor ) pattern to make it *loosely coupled* codes. 
 - SOLID 
+
+------
+
+## Database Diagrams
+
+![dbRelations](https://user-images.githubusercontent.com/81096309/124931507-f3d43e80-e00a-11eb-9294-cc6fd13b29ce.png)
