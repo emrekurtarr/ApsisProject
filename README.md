@@ -44,3 +44,9 @@
 ## Database Diagrams
 
 ![dbRelations](https://user-images.githubusercontent.com/81096309/124931507-f3d43e80-e00a-11eb-9294-cc6fd13b29ce.png)
+
+![apartmanlar](https://user-images.githubusercontent.com/81096309/124935553-6eeb2400-e00e-11eb-86fc-0e9057cee492.png)
+
+![aylıktablo](https://user-images.githubusercontent.com/81096309/124935578-74486e80-e00e-11eb-9930-3a674226a0e4.png)
+
+
