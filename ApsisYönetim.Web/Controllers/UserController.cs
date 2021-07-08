@@ -60,7 +60,13 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(AddUserDto userdto)
         {
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
 
+                return View(userdto);
+
+            }
             User user = _mapper.Map<User>(userdto);
 
             // TO DO 
@@ -115,6 +121,13 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordUserDto userdto)
         {
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(userdto);
+            }
+
             //Get current user's password & email adress
             string sessionpassword = HttpContext.Session.GetString("password");
             string sessionemail = HttpContext.Session.GetString("email");

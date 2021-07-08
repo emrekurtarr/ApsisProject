@@ -14,6 +14,7 @@ namespace ApsisYönetim.Service.MapperProfiles
         public MonthlyChargeProfile()
         {
             CreateMap<AddMonthlyChargeDto, MonthlyCharge>().ReverseMap();
+            CreateMap<MonthlyCharge, ShowChargesByMonthDto>().ReverseMap();
             CreateMap<ListingMonthlyChargeDto, MonthlyCharge>().ReverseMap();
         }
     }

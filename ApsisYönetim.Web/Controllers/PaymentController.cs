@@ -47,7 +47,14 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PayCard(CreditCardDto cardDto)
         {
-            
+
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(cardDto);
+            }
+
             var result = await _creditcardService.WithdrawMoney(cardDto);
 
             if (result.Success)

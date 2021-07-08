@@ -20,6 +20,9 @@ namespace ApsisYönetim.Data.Configuration
                          .HasForeignKey(x => x.UserId)
                           .OnDelete(DeleteBehavior.SetNull);
 
+            builder.HasMany(x => x.Roles)
+                    .WithMany(x => x.Users);
+
             
         }
     }

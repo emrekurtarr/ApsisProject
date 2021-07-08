@@ -1,0 +1,29 @@
+﻿@model ApsisYönetim.Service.DTOs.MonthlyCharge.MonthofPaymentDto
+
+@{
+    ViewData["Title"] = "SelectMonth";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SelectMonth" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MonthOfPayment" class="control-label"></label>
+                @Html.DropDownListFor(model => model.MonthOfPayment, Html.GetEnumSelectList(typeof(Months)), "Ay seçiniz", htmlAttributes: new { @class = "form-control" })
+                <span asp-validation-for="MonthOfPayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Listele" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

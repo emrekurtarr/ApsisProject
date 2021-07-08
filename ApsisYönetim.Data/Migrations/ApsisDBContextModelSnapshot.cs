@@ -301,6 +301,13 @@ namespace ApsisYönetim.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1af66980-6500-4f07-88a4-a7e98ec6013a",
+                            RoleId = "8d648279-0f75-4f5c-94f7-c46c37f921f2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -342,6 +349,22 @@ namespace ApsisYönetim.Data.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
                     b.HasDiscriminator().HasValue("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8d648279-0f75-4f5c-94f7-c46c37f921f2",
+                            ConcurrencyStamp = "8d648279-0f75-4f5c-94f7-c46c37f921f2",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "7d1391c9-69d6-49a5-9a55-0e0abb65f6b1",
+                            ConcurrencyStamp = "7d1391c9-69d6-49a5-9a55-0e0abb65f6b1",
+                            Name = "User",
+                            NormalizedName = "User"
+                        });
                 });
 
             modelBuilder.Entity("ApsisYönetim.Core.Entities.User", b =>
@@ -361,6 +384,28 @@ namespace ApsisYönetim.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1af66980-6500-4f07-88a4-a7e98ec6013a",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d407eee2-6f8a-43e4-877d-b9c5c78b7c74",
+                            Email = "emre@emre.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@admin.com",
+                            NormalizedUserName = "0THE1EMRE",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPa12ht+3HRRkQdTcIyh2WnzUUolKJ5o8vwVmqKpfHpl0tq9tYpPBB/zpNDKaXMZzw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "CGNNGCGFBRIVQ3WBFEEI2MD2ZXUPT4ZH",
+                            TwoFactorEnabled = false,
+                            UserName = "0the1emre",
+                            Name = "Emre",
+                            PlakaNo = "26BY534",
+                            Surname = "Kurtar",
+                            TcNo = "12233344445"
+                        });
                 });
 
             modelBuilder.Entity("ApsisYönetim.Core.Entities.Apartment", b =>

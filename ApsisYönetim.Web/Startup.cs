@@ -16,6 +16,7 @@ using ApsisYönetim.Service.Dependency;
 using ApsisYönetim.Core.Entities;
 using ApsisYönetim.Web.AdminConfig;
 using Microsoft.Extensions.Options;
+using FluentValidation.AspNetCore;
 
 namespace ApsisYönetim.Web
 {
@@ -46,7 +47,7 @@ namespace ApsisYönetim.Web
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(x=> x.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

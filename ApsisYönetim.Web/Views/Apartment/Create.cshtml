@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Create";
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 
 <h1>Create</h1>
 
@@ -61,7 +65,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Create" class="btn btn-danger" />
-                            <a class="btn btn-dark" href="/Category/Index">Back To list</a>
+                            @Html.ActionLink("Geri Dön","Index","Admin")
                         </div>
                     </div>
                 </div>

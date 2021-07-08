@@ -46,9 +46,18 @@ namespace ApsisYönetim.Service.Services
 
         }
 
-        public Task<IDataResult<List<MonthlyCharge>>> GetAllAsync(Expression<Func<MonthlyCharge, bool>> expression = null)
+        public async Task<IDataResult<List<MonthlyCharge>>> GetAllAsync(Expression<Func<MonthlyCharge, bool>> expression = null)
         {
-            throw new NotImplementedException();
+            var result = await _monthlyChargeRepository.GetAllAsync(expression);
+
+            return new SuccessDataResult<List<MonthlyCharge>>(result.ToList());
+        }
+
+        public async Task<IDataResult<List<MonthlyCharge>>> GetAllMonthlyChargesByMonth(Months monthOfPayment)
+        {
+            var result = await _monthlyChargeRepository.GetAllMonthlyChargesByMonth(monthOfPayment);
+
+            return new SuccessDataResult<List<MonthlyCharge>>(result);
         }
 
         public async Task<IDataResult<MonthlyCharge>> GetAsync(Expression<Func<MonthlyCharge, bool>> expression)

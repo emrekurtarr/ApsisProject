@@ -41,8 +41,9 @@ namespace ApsisYönetim.Web.Controllers
         {
             var result = await _userService.GetAsync(x => x.UserName == User.Identity.Name);
             User currentUser = result.Data;
+            var resultRoles = await _userService.GetUserRoles(currentUser);
 
-            if (currentUser.Roles.Any(x => x.Name == "Admin"))
+            if (resultRoles.Data.Any(x=> x == "Admin"))
             {
                 return RedirectToAction("Index", "Admin");
             }
@@ -53,6 +54,7 @@ namespace ApsisYönetim.Web.Controllers
 
         public IActionResult Login()
         {
+           
             if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("Index", "Home");

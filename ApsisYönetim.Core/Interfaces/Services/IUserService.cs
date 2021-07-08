@@ -17,6 +17,7 @@ namespace ApsisYönetim.Core.Interfaces.Services
         Task<IResult> ChangePassword(string newpassword,string currentpassword,string usersemail);
         Task<IDataResult<List<Apartment>>> GetUserApartmentsWithMonthlyCharge(User item);
         Task<IDataResult<List<User>>> GetAllUsersWithApartments();
+        Task<IDataResult<List<string>>> GetUserRoles(User item);
 
     }
 }

@@ -49,6 +49,14 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNoteToAdmin(AddNoteDto noteDto)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(noteDto);
+
+            }
             Note note = _mapper.Map<Note>(noteDto);
 
             string userEmail = HttpContext.Session.GetString("email");

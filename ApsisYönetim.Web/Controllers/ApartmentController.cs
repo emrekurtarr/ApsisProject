@@ -96,6 +96,14 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddApartmentDto apartmentdto)
         {
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(apartmentdto);
+
+            }
+
             Apartment apartment = _mapper.Map<Apartment>(apartmentdto);
             User user = _userService.GetAsync(x => x.Id == apartmentdto.UserId).Result.Data;
             apartment.User = user;
@@ -118,9 +126,11 @@ namespace ApsisYönetim.Web.Controllers
 
         public async Task<IActionResult> GetChargesWithApartments()
         {
-            string useridfromsession = HttpContext.Session.GetString("userid");
+            var user = await _userService.GetAsync(x => x.UserName == User.Identity.Name);
 
-            var result = await _apartmentService.GetApartmentsWithMonthlyCharge(useridfromsession);
+            //string useridfromsession = HttpContext.Session.GetString("userid");
+
+            var result = await _apartmentService.GetApartmentsWithMonthlyCharge(user.Data.Id);
             List<Apartment> apartments = result.Data;
             List<ApartmentWithChargeDto> dto = new List<ApartmentWithChargeDto>();
 

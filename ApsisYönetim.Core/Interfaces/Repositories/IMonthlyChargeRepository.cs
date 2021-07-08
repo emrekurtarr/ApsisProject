@@ -9,5 +9,6 @@ namespace ApsisYönetim.Core.Interfaces.Repositories
 {
     public interface IMonthlyChargeRepository : IRepositoryBase<MonthlyCharge>
     {
+        Task<List<MonthlyCharge>> GetAllMonthlyChargesByMonth(Months monthOfPayment);
     }
 }

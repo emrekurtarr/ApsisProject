@@ -4,7 +4,9 @@
     ViewData["Title"] = "CreateUser";
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <h1>CreateUser</h1>
 
 <h4>UserDto</h4>
@@ -60,8 +62,8 @@
 
 @*Back to showing user list*@
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

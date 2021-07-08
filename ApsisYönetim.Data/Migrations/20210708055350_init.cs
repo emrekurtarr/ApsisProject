@@ -246,6 +246,26 @@ namespace ApsisYönetim.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
+                values: new object[] { "8d648279-0f75-4f5c-94f7-c46c37f921f2", "8d648279-0f75-4f5c-94f7-c46c37f921f2", "Role", "Admin", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
+                values: new object[] { "7d1391c9-69d6-49a5-9a55-0e0abb65f6b1", "7d1391c9-69d6-49a5-9a55-0e0abb65f6b1", "Role", "User", "User" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PlakaNo", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "1af66980-6500-4f07-88a4-a7e98ec6013a", 0, "d407eee2-6f8a-43e4-877d-b9c5c78b7c74", "User", "emre@emre.com", true, false, null, "Emre", "admin@admin.com", "0THE1EMRE", "AQAAAAEAACcQAAAAEPa12ht+3HRRkQdTcIyh2WnzUUolKJ5o8vwVmqKpfHpl0tq9tYpPBB/zpNDKaXMZzw==", null, false, "26BY534", "CGNNGCGFBRIVQ3WBFEEI2MD2ZXUPT4ZH", "Kurtar", "12233344445", false, "0the1emre" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "8d648279-0f75-4f5c-94f7-c46c37f921f2", "1af66980-6500-4f07-88a4-a7e98ec6013a" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_UserId",
                 table: "Apartments",

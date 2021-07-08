@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "PayCard";
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <h1>PayCard</h1>
 
@@ -13,12 +16,12 @@
         <form asp-action="PayCard" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @Html.Label("Toplam Ücret : ") 
-                @Html.DisplayFor(x=>x.Money)
+                @Html.Label("Toplam Ücret : ")
+                @Html.DisplayFor(x => x.Money)
 
             </div>
-            @Html.HiddenFor(x=>x.ChargeId)
-            @Html.HiddenFor(x=>x.Money)
+            @Html.HiddenFor(x => x.ChargeId)
+            @Html.HiddenFor(x => x.Money)
             <div class="form-group">
                 @Html.LabelFor(x => x.User, "Ad ve Soyad : ", new { @class = "control-label" })
                 <input asp-for="User" class="form-control" />
@@ -57,5 +60,5 @@
 </div>
 
 @*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

@@ -68,7 +68,6 @@ namespace ApsisYönetim.Service.Services
 
         }
 
-        
         public async Task<IResult> Delete(User item)
         {
             User user = await _userManager.FindByIdAsync(item.Id);
@@ -139,7 +138,7 @@ namespace ApsisYönetim.Service.Services
 
         public async Task<IDataResult<User>> GetAsync(Expression<Func<User, bool>> expression)
         {
-            User user = await _userManager.Users.Include(x=>x.Roles).FirstOrDefaultAsync(expression);
+            User user = await _userManager.Users.FirstOrDefaultAsync(expression);
 
             if (user == null)
             {
@@ -170,6 +169,12 @@ namespace ApsisYönetim.Service.Services
             //}
 
             return new SuccessDataResult<List<Apartment>>(apartments);
+        }
+
+        public async Task<IDataResult<List<string>>> GetUserRoles(User item)
+        {
+            var result = await _userManager.GetRolesAsync(item);
+            return new SuccessDataResult<List<string>>(result.ToList());
         }
 
         public async Task<IDataResult<bool>> Login(User item,string password)
@@ -231,7 +236,6 @@ namespace ApsisYönetim.Service.Services
             return new SuccessResult();
         }
 
-        
         public async Task<IResult> Update(User item)
         {
             User user = await _userManager.FindByIdAsync(item.Id);
@@ -257,7 +261,6 @@ namespace ApsisYönetim.Service.Services
 
         }
 
-        
         async Task<IResult> IServiceBase<User>.AddAsync(User item)
         {
             if (item == null)
@@ -282,5 +285,6 @@ namespace ApsisYönetim.Service.Services
 
             return new ErrorResult(item.Name + UserMessages.FailAdded);
         }
+
     }
 }

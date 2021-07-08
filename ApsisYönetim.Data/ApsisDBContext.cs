@@ -25,7 +25,7 @@ namespace ApsisYönetim.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
+            
             base.OnModelCreating(builder);
         }
 

@@ -11,6 +11,7 @@ namespace ApsisYönetim.Core.Interfaces.Services
     public interface IMonthlyChargeService : IServiceBase<MonthlyCharge>
     {
         Task<IResult> SetPaid(int chargeid);
+        Task<IDataResult<List<MonthlyCharge>>> GetAllMonthlyChargesByMonth(Months monthOfPayment);
 
     }
 }

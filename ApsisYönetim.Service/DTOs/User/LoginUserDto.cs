@@ -10,10 +10,9 @@ namespace ApsisYönetim.Service.DTOs.User
     public class LoginUserDto
     {
 
-        [Required(ErrorMessage = "{0} alanı gereklidir.")]
+        
         public string Email { get; set; }
-        [Required(ErrorMessage ="{0} alanı gereklidir.")]
-        [DataType(DataType.Password)]
+        
         public string Password { get; set; }
 
     }

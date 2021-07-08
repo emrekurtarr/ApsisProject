@@ -42,6 +42,13 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddtoApartment(AddMonthlyChargeDto chargedto)
         {
+            if(!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(chargedto);
+
+            }
 
             MonthlyCharge monthlyCharge = _mapper.Map<MonthlyCharge>(chargedto);
 
@@ -54,5 +61,31 @@ namespace ApsisYönetim.Web.Controllers
 
             return RedirectToAction("AddtoApartment");
         }
+
+
+
+        public IActionResult SelectMonth()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectMonth(MonthofPaymentDto month)
+        {
+            var result = await _monthlyChargeService.GetAllMonthlyChargesByMonth((Months)month.MonthOfPayment);
+            List<MonthlyCharge> charges = result.Data;
+            var dtoResult = _mapper.Map<List<ShowChargesByMonthDto>>(charges);
+
+
+
+            return View("ShowChargesByMonth",dtoResult);
+        }
+
+        public IActionResult ShowChargesByMonth(List<ShowChargesByMonthDto> chargesDto)
+        {
+            return View(chargesDto);
+        }
+
+
     }
 }

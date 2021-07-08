@@ -5,6 +5,9 @@
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <h1>DetailUser</h1>
 
@@ -39,7 +42,7 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x => x.Id)
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />

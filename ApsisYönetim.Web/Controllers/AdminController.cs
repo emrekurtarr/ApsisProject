@@ -67,6 +67,12 @@ namespace ApsisYönetim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DetailUser(EditUserDto userdto)
         {
+            if (!ModelState.IsValid)
+            {
+                var messages = ModelState.ToList();
+
+                return View(userdto);
+            }
 
             var result = await _userService.Update(_mapper.Map<User>(userdto));
 
