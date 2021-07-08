@@ -9,10 +9,9 @@
       -	Be able to seeing whole site's charge as month 
 
 -	Resident Specification
-  -	Pay the bills
-  -	Sending messages to the admin
-  -	Be able to seeing the each invoice 
-  -	
+    -	Pay the bills
+    -	Sending messages to the admin
+    -	Be able to seeing the each invoice 
 
 ---------------
 
